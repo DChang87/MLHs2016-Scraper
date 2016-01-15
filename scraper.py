@@ -2,7 +2,9 @@ import smtplib, smtpd
 import codecs
 import requests
 import bs4
-originalE = open("MLHs2016.dat","r").read().split('\n')
+originalF = open("MLHs2016.dat","r")
+originalE = originalF.read().split('\n')
+originalF.close()
 out = open("MLHs2016.dat","w+")
 addition = []
 def main():
@@ -10,6 +12,7 @@ def main():
     soup = bs4.BeautifulSoup(page.text,'lxml')
     #print(data)
     mydivs = soup.findAll("div", { "class" : "event-wrapper" })
+    
     events = []
     for i in mydivs:
         events.append(str(i.h3)[4:-5])
@@ -17,10 +20,10 @@ def main():
         if i not in originalE:
             addition.append(i)
     for j in addition:
-        USERNAME = ''
-        PASSWORD = ''
-        SENDER = ''
-        receiver = ''
+        USERNAME = '699deffaf305f568a69dc5c794debe11'
+        PASSWORD = '7fe3167570809e035104d56a3aadea31'
+        SENDER = 'diana.chang.twn@gmail.com'
+        receiver = 'diana.chang.twn@gmail.com'
         message = "\r\n".join([
         "From: %s" % SENDER,
         "To: %s" % receiver,
@@ -39,3 +42,4 @@ def main():
     for i in events:
         out.write(i+"\n")
     out.close()
+main()
